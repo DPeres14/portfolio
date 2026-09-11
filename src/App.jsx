@@ -1,3 +1,4 @@
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,7 +17,23 @@ import { Footer } from './components/Footer';
 import { Development } from './pages/Development';
 import { ProjectDetails } from './pages/ProjectDetails';
 
+let savedHomeScrollPosition = null;
+
 function HomePage() {
+  useEffect(() => {
+    if (savedHomeScrollPosition === null) {
+      return;
+    }
+
+    window.scrollTo({
+      top: savedHomeScrollPosition,
+      left: 0,
+      behavior: 'auto',
+    });
+
+    savedHomeScrollPosition = null;
+  }, []);
+
   return (
     <>
       <Hero />
@@ -33,7 +50,19 @@ function HomePage() {
 
 function App() {
   const location = useLocation();
+  const previousPathname = useRef(location.pathname);
   const isBlogPost = location.pathname.startsWith('/blog/');
+
+  useLayoutEffect(() => {
+    const previousWasHome = previousPathname.current === '/';
+    const isHome = location.pathname === '/';
+
+    if (previousWasHome && !isHome) {
+      savedHomeScrollPosition = window.scrollY;
+    }
+
+    previousPathname.current = location.pathname;
+  }, [location.pathname]);
 
   return (
     <ThemeProvider theme={darkTheme}>

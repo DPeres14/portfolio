@@ -28,9 +28,19 @@ export const Contact = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    alert(
-      'O formulário de contacto será ligado ao serviço de email em breve.'
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const message = formData.get('message');
+
+    const subject = encodeURIComponent(`Contacto do portefólio de Diogo Peres: ${name}`);
+    const body = encodeURIComponent(
+      `Nome: ${name}\nEmail: ${email}\n\n${message}`
     );
+
+    window.location.href =
+      `mailto:contacto.diogoperes@gmail.com?subject=${subject}&body=${body}`;
   };
 
   const inputStyles = {
@@ -198,7 +208,7 @@ export const Contact = () => {
                         fontSize: '0.82rem',
                       }}
                     >
-                      peres.diogor@gmail.com
+                      contacto.diogoperes@gmail.com
                     </Typography>
                   </Box>
                 </Box>
@@ -293,6 +303,7 @@ export const Contact = () => {
               <Stack spacing={2}>
                 <TextField
                   label="Nome"
+                  name="name"
                   fullWidth
                   required
                   sx={inputStyles}
@@ -300,6 +311,7 @@ export const Contact = () => {
 
                 <TextField
                   label="Email"
+                  name="email"
                   type="email"
                   fullWidth
                   required
@@ -308,6 +320,7 @@ export const Contact = () => {
 
                 <TextField
                   label="Mensagem"
+                  name="message"
                   fullWidth
                   required
                   multiline

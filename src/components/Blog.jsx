@@ -6,6 +6,7 @@ import { BlogCard } from './BlogCard';
 
 import post1Raw from '../posts/otimizando-react.md?raw';
 import post2Raw from '../posts/aprendizado-fullstack.md?raw';
+import post3Raw from '../posts/localhost.md?raw';
 
 const parseFrontmatter = (content) => {
   const lines = content.split('\n');
@@ -57,6 +58,10 @@ const rawPosts = [
   {
     content: post2Raw,
     slug: 'aprendizado-fullstack',
+  },
+  {
+    content: post3Raw,
+    slug: 'localhost',
   },
 ];
 

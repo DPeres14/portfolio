@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import {
   Box,
@@ -24,6 +25,14 @@ import { projects } from '../data/projects';
 
 export const ProjectDetails = () => {
   const { id } = useParams();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'auto',
+    });
+  }, [id]);
 
   const project = projects.find(
     (item) => String(item.id) === String(id)
@@ -105,7 +114,8 @@ export const ProjectDetails = () => {
         background:
           'radial-gradient(circle at top, rgba(124,109,240,0.09), transparent 30%), #0a0a0f',
         color: '#f5f5f7',
-        py: { xs: 4, md: 7 },
+        pt: { xs: 10, md: 11 },
+        pb: { xs: 4, md: 7 },
       }}
     >
       <Box

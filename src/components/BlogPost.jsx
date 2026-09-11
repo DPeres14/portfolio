@@ -29,6 +29,7 @@ import ReactMarkdown from 'react-markdown';
 // Posts
 import post1Raw from '../posts/otimizando-react.md?raw';
 import post2Raw from '../posts/aprendizado-fullstack.md?raw';
+import post3Raw from '../posts/localhost.md?raw';
 
 
 // ============================================================
@@ -90,6 +91,7 @@ const parseMarkdown = (content) => {
 const postsMap = {
   'otimizando-react': post1Raw,
   'aprendizado-fullstack': post2Raw,
+  'localhost': post3Raw,
 };
 
 
@@ -104,6 +106,14 @@ export const BlogPost = () => {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'auto',
+    });
+  }, [slug]);
 
   // ----------------------------------------------------------
   // LOAD POST

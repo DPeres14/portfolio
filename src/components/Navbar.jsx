@@ -5,6 +5,7 @@
 // ======================================================
 
 import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -35,6 +36,8 @@ const navItems = [
 ];
 
 export const Navbar = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -73,11 +76,23 @@ export const Navbar = () => {
   }, []);
 
   const scrollToSection = (id) => {
+    setMobileOpen(false);
+
+    if (location.pathname !== '/') {
+      navigate(`/#${id}`);
+
+      window.setTimeout(() => {
+        document
+          .getElementById(id)
+          ?.scrollIntoView({ behavior: 'smooth' });
+      }, 0);
+
+      return;
+    }
+
     document
       .getElementById(id)
       ?.scrollIntoView({ behavior: 'smooth' });
-
-    setMobileOpen(false);
   };
 
   return (
