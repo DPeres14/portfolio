@@ -180,7 +180,7 @@ export const Skills = () => {
                   <Stack spacing={2.2}>
                     {category.items.map((skill) => (
                       <Box key={skill.name}>
-                        {/* Name + percentage */}
+                        {/* Name + experience */}
                         <Box
                           sx={{
                             display: 'flex',
@@ -199,44 +199,21 @@ export const Skills = () => {
                             {skill.name}
                           </Typography>
 
-                          <Typography
+                          <Chip
+                            label={skill.experience}
+                            size="small"
                             sx={{
-                              color: '#7c6df0',
-                              fontSize: '0.72rem',
-                              fontWeight: 700,
-                            }}
-                          >
-                            {skill.level}%
-                          </Typography>
-                        </Box>
-
-                        {/* Progress */}
-                        <Box
-                          sx={{
-                            width: '100%',
-                            height: 5,
-                            borderRadius: 10,
-                            overflow: 'hidden',
-                            backgroundColor:
-                              'rgba(255, 255, 255, 0.06)',
-                          }}
-                        >
-                          <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{
-                              width: `${skill.level}%`,
-                            }}
-                            transition={{
-                              duration: 1,
-                              delay: 0.2 + categoryIndex * 0.1,
-                              ease: 'easeOut',
-                            }}
-                            viewport={{ once: true }}
-                            style={{
-                              height: '100%',
-                              borderRadius: 10,
-                              background:
-                                'linear-gradient(90deg, #7c6df0, #a78bfa)',
+                              height: 22,
+                              color: '#aaa2f5',
+                              backgroundColor:
+                                'rgba(124, 109, 240, 0.08)',
+                              border:
+                                '1px solid rgba(124, 109, 240, 0.14)',
+                              '& .MuiChip-label': {
+                                px: 1,
+                                fontSize: '0.64rem',
+                                fontWeight: 600,
+                              },
                             }}
                           />
                         </Box>

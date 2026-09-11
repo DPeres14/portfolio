@@ -135,7 +135,7 @@ export const Hero = () => {
                   mb: 3,
                 }}
               >
-                Fullstack Developer
+                 Desenvolvedor fullstack de aplicações web e mobile
               </Typography>
 
               <Typography
@@ -150,9 +150,10 @@ export const Hero = () => {
                   mb: 4,
                 }}
               >
-                Desenvolvo aplicações web e mobile, desde interfaces
-                modernas até APIs e bases de dados. Gosto de transformar
-                problemas em soluções simples, funcionais e bem construídas.
+                 Crio produtos digitais com React, Node.js e PostgreSQL,
+                 ligando interfaces claras a APIs robustas e dados bem
+                 estruturados. Gosto de transformar problemas reais em
+                 soluções simples e úteis.
               </Typography>
 
               <Stack

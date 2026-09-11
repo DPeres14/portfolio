@@ -34,6 +34,7 @@ export const Contact = () => {
     const name = formData.get('name');
     const email = formData.get('email');
     const message = formData.get('message');
+    const website = formData.get('website');
 
     setIsSending(true);
     setStatus({
@@ -51,13 +52,26 @@ export const Contact = () => {
           name,
           email,
           message,
+          website,
         }),
       });
 
-      const data = await response.json();
+      const responseText = await response.text();
+      let data = {};
+
+      if (responseText) {
+        try {
+          data = JSON.parse(responseText);
+        } catch {
+          data = {};
+        }
+      }
 
       if (!response.ok) {
-        throw new Error(data.message || 'Erro ao enviar mensagem.');
+        throw new Error(
+          data.message ||
+            `Serviço de contacto indisponível (${response.status}).`
+        );
       }
 
       setStatus({
@@ -305,6 +319,26 @@ export const Contact = () => {
               }}
             >
               <Stack spacing={2}>
+                <Box
+                  component="input"
+                  type="text"
+                  name="website"
+                  autoComplete="off"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                  sx={{
+                    position: 'absolute',
+                    width: 1,
+                    height: 1,
+                    padding: 0,
+                    margin: '-1px',
+                    overflow: 'hidden',
+                    clip: 'rect(0, 0, 0, 0)',
+                    whiteSpace: 'nowrap',
+                    border: 0,
+                  }}
+                />
+
                 <TextField
                   label="Nome"
                   name="name"

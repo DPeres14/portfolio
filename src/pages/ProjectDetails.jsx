@@ -68,6 +68,35 @@ export const ProjectDetails = () => {
             O projeto que procuras não existe ou foi removido.
           </Typography>
 
+              {(project.contribution || project.impact) && (
+                <Stack spacing={1.5} sx={{ mb: 3 }}>
+                  {project.contribution && (
+                    <Typography
+                      sx={{
+                        color: '#c0c0cc',
+                        fontSize: '0.95rem',
+                        lineHeight: 1.7,
+                      }}
+                    >
+                      <strong>O meu contributo:</strong>{' '}
+                      {project.contribution}
+                    </Typography>
+                  )}
+
+                  {project.impact && (
+                    <Typography
+                      sx={{
+                        color: '#c0c0cc',
+                        fontSize: '0.95rem',
+                        lineHeight: 1.7,
+                      }}
+                    >
+                      <strong>Resultado:</strong> {project.impact}
+                    </Typography>
+                  )}
+                </Stack>
+              )}
+
           <Button
             component={Link}
             to="/"
@@ -246,6 +275,35 @@ export const ProjectDetails = () => {
               >
                 {project.longDescription}
               </Typography>
+
+              {(project.contribution || project.impact) && (
+                <Stack spacing={1.5} sx={{ mb: 3 }}>
+                  {project.contribution && (
+                    <Typography
+                      sx={{
+                        color: '#c0c0cc',
+                        fontSize: '0.95rem',
+                        lineHeight: 1.7,
+                      }}
+                    >
+                      <strong>O meu contributo:</strong>{' '}
+                      {project.contribution}
+                    </Typography>
+                  )}
+
+                  {project.impact && (
+                    <Typography
+                      sx={{
+                        color: '#c0c0cc',
+                        fontSize: '0.95rem',
+                        lineHeight: 1.7,
+                      }}
+                    >
+                      <strong>Resultado:</strong> {project.impact}
+                    </Typography>
+                  )}
+                </Stack>
+              )}
 
               <Stack
                 direction="row"

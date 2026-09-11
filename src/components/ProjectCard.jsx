@@ -27,14 +27,6 @@ export const ProjectCard = ({ project }) => {
 
   return (
     <Card
-      onClick={handleOpenProject}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          handleOpenProject();
-        }
-      }}
       sx={{
         height: '100%',
         display: 'flex',
@@ -173,6 +165,26 @@ export const ProjectCard = ({ project }) => {
             letterSpacing: '-0.01em',
           }}
         >
+        {project.featured && (
+          <Chip
+            label="Projeto em destaque"
+            size="small"
+            sx={{
+              alignSelf: 'flex-start',
+              mb: 1.5,
+              height: 24,
+              color: '#9b8ff5',
+              backgroundColor: 'rgba(124, 109, 240, 0.1)',
+              border: '1px solid rgba(124, 109, 240, 0.18)',
+              '& .MuiChip-label': {
+                px: 1,
+                fontSize: '0.68rem',
+                fontWeight: 700,
+              },
+            }}
+          />
+        )}
+
           {project.title}
         </Typography>
 
@@ -264,6 +276,21 @@ export const ProjectCard = ({ project }) => {
           }}
         >
           <Stack direction="row" spacing={0.5}>
+            <Button
+              size="small"
+              onClick={handleOpenProject}
+              endIcon={<ArrowOutwardIcon />}
+              sx={{
+                px: 1.2,
+                color: '#9b8ff5',
+                textTransform: 'none',
+                fontWeight: 600,
+                fontSize: '0.8rem',
+              }}
+            >
+              Ver projeto
+            </Button>
+
             {project.live && (
               <Button
                 size="small"

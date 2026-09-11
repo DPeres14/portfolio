@@ -120,6 +120,7 @@ export const projects = [
 
     status: 'completed',
     statusLabel: 'Concluído',
+      featured: true,
 
     year: '2026',
 
@@ -144,6 +145,12 @@ export const projects = [
       'Aplicação mobile',
       'Comunicação em tempo real',
     ],
+
+      contribution:
+        'Desenvolvimento frontend e backend, integração web/mobile e coordenação da equipa durante a evolução da plataforma.',
+
+      impact:
+        'Uma solução empresarial para acompanhar a progressão de colaboradores através de learning paths, badges e níveis.',
 
     learnings: [
       'Desenvolvimento de uma plataforma completa',

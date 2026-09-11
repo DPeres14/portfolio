@@ -26,10 +26,15 @@ export const Projects = () => {
     }
   };
 
-  const filteredProjects =
-    filter === 'todos'
-      ? projects
-      : projects.filter((project) => project.category === filter);
+    const filteredProjects = projects
+      .filter(
+        (project) =>
+          filter === 'todos' || project.category === filter
+      )
+      .sort(
+        (firstProject, secondProject) =>
+          Number(secondProject.featured) - Number(firstProject.featured)
+      );
 
   return (
     <Box
@@ -83,8 +88,8 @@ export const Projects = () => {
               lineHeight: 1.7,
             }}
           >
-            Alguns dos projetos que desenvolvi ao longo do meu percurso,
-            desde aplicações frontend a soluções fullstack completas.
+            Projetos onde transformei requisitos em aplicações web e mobile,
+            com atenção à experiência de utilização, arquitetura e dados.
           </Typography>
         </Box>
 
