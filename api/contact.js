@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     }
 
     const { data, error } = await resend.emails.send({
-      from: 'Portefólio <contacto@diogoperes.vercel.app>',
+      from: 'Portefólio <onboarding@resend.dev>',
       to: ['contacto.diogoperes@gmail.com'],
       replyTo: email,
       subject: `Novo contacto do portefólio: ${name}`,
