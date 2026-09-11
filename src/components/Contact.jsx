@@ -1,10 +1,3 @@
-
-
-
-// ======================================================
-// Contact.jsx
-// ======================================================
-
 import {
   Box,
   Typography,
@@ -17,6 +10,7 @@ import {
 } from '@mui/material';
 
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -25,22 +19,64 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import SendIcon from '@mui/icons-material/Send';
 
 export const Contact = () => {
-  const handleSubmit = (event) => {
+  const [isSending, setIsSending] = useState(false);
+  const [status, setStatus] = useState({
+    type: '',
+    message: '',
+  });
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const form = event.currentTarget;
     const formData = new FormData(form);
+
     const name = formData.get('name');
     const email = formData.get('email');
     const message = formData.get('message');
 
-    const subject = encodeURIComponent(`Contacto do portefólio de Diogo Peres: ${name}`);
-    const body = encodeURIComponent(
-      `Nome: ${name}\nEmail: ${email}\n\n${message}`
-    );
+    setIsSending(true);
+    setStatus({
+      type: '',
+      message: '',
+    });
 
-    window.location.href =
-      `mailto:contacto.diogoperes@gmail.com?subject=${subject}&body=${body}`;
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Erro ao enviar mensagem.');
+      }
+
+      setStatus({
+        type: 'success',
+        message: 'Mensagem enviada com sucesso! Obrigado pelo contacto.',
+      });
+
+      form.reset();
+    } catch (error) {
+      console.error(error);
+
+      setStatus({
+        type: 'error',
+        message:
+          'Não foi possível enviar a mensagem. Tenta novamente mais tarde.',
+      });
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const inputStyles = {
@@ -181,38 +217,6 @@ export const Contact = () => {
               </Typography>
 
               <Stack spacing={2.5}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 1.5,
-                  }}
-                >
-                  <EmailOutlinedIcon
-                    sx={{ color: '#8b7cf6' }}
-                  />
-
-                  <Box>
-                    <Typography
-                      sx={{
-                        color: '#66667b',
-                        fontSize: '0.68rem',
-                      }}
-                    >
-                      Email
-                    </Typography>
-
-                    <Typography
-                      sx={{
-                        color: '#c0c0cc',
-                        fontSize: '0.82rem',
-                      }}
-                    >
-                      contacto.diogoperes@gmail.com
-                    </Typography>
-                  </Box>
-                </Box>
-
                 <Divider
                   sx={{
                     borderColor:
@@ -333,6 +337,7 @@ export const Contact = () => {
                   variant="contained"
                   endIcon={<SendIcon />}
                   size="large"
+                  disabled={isSending}
                   sx={{
                     alignSelf: 'flex-start',
                     px: 3,
@@ -342,8 +347,22 @@ export const Contact = () => {
                     fontWeight: 700,
                   }}
                 >
-                  Enviar mensagem
+                  {isSending ? 'A enviar...' : 'Enviar mensagem'}
                 </Button>
+
+                {status.message && (
+                  <Typography
+                    sx={{
+                      fontSize: '0.85rem',
+                      color:
+                        status.type === 'success'
+                          ? '#7dd3a8'
+                          : '#f28b8b',
+                    }}
+                  >
+                    {status.message}
+                  </Typography>
+                )}
               </Stack>
             </Box>
           </Stack>
