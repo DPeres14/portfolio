@@ -117,6 +117,7 @@ export const projects = [
       'Plataforma desenvolvida para suportar um sistema de gamificação empresarial, permitindo gerir Learning Paths, Service Lines, áreas, badges, níveis e requisitos. A solução inclui diferentes perfis de utilizador e aplicações web e mobile.',
 
     image: '/projects/Lpaths.png',
+    gallery: ['/projects/Lpaths.png'],
 
     status: 'completed',
     statusLabel: 'Concluído',

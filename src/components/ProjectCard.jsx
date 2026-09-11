@@ -70,7 +70,7 @@ export const ProjectCard = ({ project }) => {
         sx={{
           position: 'relative',
           overflow: 'hidden',
-          height: { xs: 190, sm: 200 },
+          height: { xs: 190, sm: 210 },
           backgroundColor: '#11111a',
         }}
       >
@@ -129,6 +129,26 @@ export const ProjectCard = ({ project }) => {
           }}
         />
 
+        <Chip
+          label={project.statusLabel}
+          size="small"
+          sx={{
+            position: 'absolute',
+            right: 14,
+            bottom: 14,
+            height: 26,
+            color: project.status === 'completed' ? '#a6edc0' : '#d2ccff',
+            backgroundColor: 'rgba(10, 10, 18, 0.72)',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
+            backdropFilter: 'blur(10px)',
+            '& .MuiChip-label': {
+              px: 1.1,
+              fontSize: '0.66rem',
+              fontWeight: 700,
+            },
+          }}
+        />
+
         {/* Número */}
         <Typography
           sx={{
@@ -154,17 +174,6 @@ export const ProjectCard = ({ project }) => {
           p: { xs: 2.5, md: 3 },
         }}
       >
-        {/* Título */}
-        <Typography
-          variant="h6"
-          sx={{
-            mb: 1.2,
-            color: '#f4f4f7',
-            fontWeight: 700,
-            fontSize: '1.15rem',
-            letterSpacing: '-0.01em',
-          }}
-        >
         {project.featured && (
           <Chip
             label="Projeto em destaque"
@@ -185,6 +194,20 @@ export const ProjectCard = ({ project }) => {
           />
         )}
 
+        {/* Título */}
+        <Typography
+          variant="h6"
+          sx={{
+            mb: 1.2,
+            color: '#f4f4f7',
+            fontWeight: 700,
+            fontSize: '1.15rem',
+            letterSpacing: '-0.01em',
+            ...(project.featured && {
+              fontSize: { xs: '1.35rem', md: '1.6rem' },
+            }),
+          }}
+        >
           {project.title}
         </Typography>
 

@@ -9,6 +9,7 @@ import {
   Grid,
   Stack,
   Divider,
+  Paper,
 } from '@mui/material';
 
 import { motion } from 'framer-motion';
@@ -20,6 +21,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
 import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
+import PhotoLibraryOutlinedIcon from '@mui/icons-material/PhotoLibraryOutlined';
 
 import { projects } from '../data/projects';
 
@@ -68,35 +70,6 @@ export const ProjectDetails = () => {
             O projeto que procuras não existe ou foi removido.
           </Typography>
 
-              {(project.contribution || project.impact) && (
-                <Stack spacing={1.5} sx={{ mb: 3 }}>
-                  {project.contribution && (
-                    <Typography
-                      sx={{
-                        color: '#c0c0cc',
-                        fontSize: '0.95rem',
-                        lineHeight: 1.7,
-                      }}
-                    >
-                      <strong>O meu contributo:</strong>{' '}
-                      {project.contribution}
-                    </Typography>
-                  )}
-
-                  {project.impact && (
-                    <Typography
-                      sx={{
-                        color: '#c0c0cc',
-                        fontSize: '0.95rem',
-                        lineHeight: 1.7,
-                      }}
-                    >
-                      <strong>Resultado:</strong> {project.impact}
-                    </Typography>
-                  )}
-                </Stack>
-              )}
-
           <Button
             component={Link}
             to="/"
@@ -135,6 +108,9 @@ export const ProjectDetails = () => {
 
   const status =
     statusStyles[project.status] || statusStyles.archived;
+  const galleryImages = project.gallery?.length
+    ? project.gallery
+    : [project.image];
 
   return (
     <Box
@@ -388,6 +364,87 @@ export const ProjectDetails = () => {
             </motion.div>
           </Grid>
         </Grid>
+
+        <Grid
+          container
+          spacing={1.5}
+          sx={{ mb: { xs: 7, md: 9 } }}
+        >
+          {[
+            { label: 'Estado', value: project.statusLabel },
+            { label: 'Ano', value: project.year },
+            { label: 'Tecnologias', value: `${project.stack.length} utilizadas` },
+          ].map((item) => (
+            <Grid item xs={12} sm={4} key={item.label}>
+              <Paper
+                elevation={0}
+                sx={{
+                  p: { xs: 2, md: 2.5 },
+                  backgroundColor: 'rgba(255,255,255,0.035)',
+                  border: '1px solid rgba(255,255,255,0.07)',
+                  borderRadius: 2,
+                }}
+              >
+                <Typography
+                  sx={{
+                    color: '#68687c',
+                    fontSize: '0.68rem',
+                    fontWeight: 700,
+                    letterSpacing: 1.4,
+                    textTransform: 'uppercase',
+                    mb: 0.7,
+                  }}
+                >
+                  {item.label}
+                </Typography>
+                <Typography
+                  sx={{
+                    color: '#f0f0f5',
+                    fontSize: '1rem',
+                    fontWeight: 700,
+                  }}
+                >
+                  {item.value}
+                </Typography>
+              </Paper>
+            </Grid>
+          ))}
+        </Grid>
+
+        <Box sx={{ mb: { xs: 7, md: 10 } }}>
+          <SectionTitle
+            icon={<PhotoLibraryOutlinedIcon />}
+            eyebrow="Por dentro do projeto"
+            title="Galeria"
+          />
+
+          <Grid container spacing={2} sx={{ mt: 1 }}>
+            {galleryImages.map((image, index) => (
+              <Grid
+                item
+                xs={12}
+                sm={galleryImages.length === 1 ? 12 : index === 0 ? 7 : 5}
+                key={image}
+              >
+                <Box
+                  component="img"
+                  src={image}
+                  alt={`${project.title} - fotografia ${index + 1}`}
+                  sx={{
+                    display: 'block',
+                    width: '100%',
+                    height: { xs: 220, md: index === 0 ? 330 : 220 },
+                    objectFit: 'cover',
+                    borderRadius: 2.5,
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    backgroundColor: '#11111a',
+                  }}
+                />
+              </Grid>
+            ))}
+          </Grid>
+
+        </Box>
 
         {/* Nota */}
         {project.note && (

@@ -52,7 +52,7 @@ export const Projects = () => {
         viewport={{ once: true, amount: 0.2 }}
       >
         {/* Header */}
-        <Box sx={{ textAlign: 'center', mb: { xs: 5, md: 7 } }}>
+        <Box sx={{ mb: { xs: 5, md: 6 } }}>
           <Typography
             variant="overline"
             sx={{
@@ -81,8 +81,7 @@ export const Projects = () => {
 
           <Typography
             sx={{
-              maxWidth: 650,
-              mx: 'auto',
+              maxWidth: 680,
               color: '#9494aa',
               fontSize: { xs: '0.95rem', md: '1.05rem' },
               lineHeight: 1.7,
@@ -90,6 +89,17 @@ export const Projects = () => {
           >
             Projetos onde transformei requisitos em aplicações web e mobile,
             com atenção à experiência de utilização, arquitetura e dados.
+          </Typography>
+
+          <Typography
+            sx={{
+              mt: 2.5,
+              color: '#68687c',
+              fontSize: '0.78rem',
+              fontWeight: 600,
+            }}
+          >
+            {projects.length} projetos · atualizados em 2026
           </Typography>
         </Box>
 
@@ -153,13 +163,13 @@ export const Projects = () => {
 
         {/* Projetos */}
         <AnimatePresence mode="popLayout">
-          <Grid container spacing={{ xs: 2.5, md: 3 }}>
+            <Grid container spacing={{ xs: 2.5, md: 3 }}>
             {filteredProjects.map((project, index) => (
               <Grid
                 item
-                xs={12}
-                sm={6}
-                lg={4}
+                  xs={12}
+                  sm={6}
+                  lg={4}
                 key={project.id}
                 component={motion.div}
                 layout
